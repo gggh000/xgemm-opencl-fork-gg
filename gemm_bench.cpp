@@ -1,4 +1,5 @@
 //#include "ifort64/include/acml.h"
+//#define NOCPU
 #ifndef NOCPU
 extern "C" {
 #include "cblas.h"
@@ -233,6 +234,7 @@ void cpu_gemm(size_t M, size_t N, size_t K, double alpha, double* A, size_t lda,
 }
 
 #ifndef NOCPU
+
 bool checkResultCPU(double* DeviceResult, double* A, double* B,double* RefC, double alpha, double beta, int K, int M, int N, int lda,int ldb, int ldc)
 {
   cblas_dgemm(CblasColMajor, CblasNoTrans, CblasTrans, M, N, K, alpha, A, lda, B, ldb, beta, RefC, ldc);
@@ -368,6 +370,7 @@ double run(cl_context ctx, cl_command_queue queue, cl_kernel kernel, size_t M, s
 
   // std::cout<<"B[352] = "<<B[352]<<std::endl;
 #ifndef NOCPU
+  std::cout  << "GG: NOCPU (GPU)";
   if(test)
   {
     // cpu_gemm(M,N,K,alpha,&(A[0]),M,&(B[0]),N,beta,&(C[0]),M);
