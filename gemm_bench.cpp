@@ -56,7 +56,7 @@ thread_data* g_data = NULL;
 #define EPSILONF 10e-3
 //Benchmark sizes
 static const unsigned int size_min = 96*10;
-static const unsigned int size_max = 7000;
+static const unsigned int size_max = 6000;
 static const unsigned int size_inc = 96;
 
 
@@ -797,7 +797,7 @@ int main( int argc, char *argv[])
     //sgemm1
     std::string srcXgemm;
     if (sgemm)
-        srcXgemm = get_file_contents("sgemmBest96NT.cl");
+        srcXgemm = get_file_contents("sgemmBest96NT_GG.cl");
     else
         srcXgemm = get_file_contents("dgemmBest48NT.cl");
 
