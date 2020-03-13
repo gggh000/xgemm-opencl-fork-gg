@@ -7,8 +7,8 @@
   };                                \
   offA += 97;								        \
   offB += 97;								        \
-  for (int o=0; o<BLKSIZE_GG; o++) {                \
-    for (i=0;i<BLKSIZE_GG;i++) {                    \
+  for (int o=0; o<6; o++) {                \
+    for (int i=0;i<6;i++) {                    \
       rC[i][o]=mad(rA[0][i],rB[0][o],rC[i][o]);     \
     };                                              \
   };                                                \
