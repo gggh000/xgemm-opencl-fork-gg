@@ -1,16 +1,10 @@
-#define  M6x6 \
-  rA[0][0] = lA[offA + 0];				  \
-  rA[0][1] = lA[offA + 16];				  \
-  rA[0][2] = lA[offA + 32];				  \
-  rA[0][3] = lA[offA + 48];				  \
-  rA[0][4] = lA[offA + 64];				  \
-  rA[0][5] = lA[offA + 80];				  \
-  rB[0][0] = lB[offB + 0];				  \
-  rB[0][1] = lB[offB + 16];				  \
-  rB[0][2] = lB[offB + 32];				  \
-  rB[0][3] = lB[offB + 48];				  \
-  rB[0][4] = lB[offB + 64];				  \
-  rB[0][5] = lB[offB + 80];				  \
+#define  M6x6                       \
+  for (int i=0;i<6;i++) {           \
+      rA[0][i] = lA[offA + i*16];   \
+  };                                \
+  for (int i=0;i<6;i++) {            \
+      rB[0][i] = lB[offB + i*16];                         \
+  }; \
   offA += 97;								  \
   offB += 97;								  \
   rC[0][0]=mad(rA[0][0],rB[0][0],rC[0][0]); \
