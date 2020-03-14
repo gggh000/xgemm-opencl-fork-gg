@@ -1,14 +1,15 @@
+#define BLOCK_SZ 6
 #define  M6x6                       \
-  for (int i=0;i<6;i++) {           \
+  for (int i=0;i<BLOCK_SZ;i++) {           \
       rA[0][i] = lA[offA + i*16];   \
   };                                \
-  for (int i=0;i<6;i++) {           \
+  for (int i=0;i<BLOCK_SZ;i++) {           \
       rB[0][i] = lB[offB + i*16];   \
   };                                \
   offA += 97;								        \
   offB += 97;								        \
-  for (int o=0; o<6; o++) {                \
-    for (int i=0;i<6;i++) {                    \
+  for (int o=0; o<BLOCK_SZ; o++) {                \
+    for (int i=0;i<BLOCK_SZ;i++) {                    \
       rC[i][o]=mad(rA[0][i],rB[0][o],rC[i][o]);     \
     };                                              \
   };                                                \
@@ -30,11 +31,9 @@ __attribute__((reqd_work_group_size(16,16,1)))
   uint offsetB,
   uint offsetC)
 {
-  float rC[6][6]  = {(float)0};
-  float rA[1][6];
-  float rB[1][6];
-
-
+  float rC[BLOCK_SZ][BLOCK_SZ]  = {(float)0};
+  float rA[1][BLOCK_SZ];
+  float rB[1][BLOCK_SZ];
 
   A += offsetA;
   B += offsetB;
@@ -58,25 +57,18 @@ __attribute__((reqd_work_group_size(16,16,1)))
     __local float* plA = lA + idy*97+idx;
     __local float* plB = lB + idy*97+idx;
     barrier(CLK_LOCAL_MEM_FENCE);
-    plB[0] = B[0+0*ldb];
-    plB[16] = B[16+0*ldb];
-    plB[32] = B[32+0*ldb];
-    plB[48] = B[48+0*ldb];
-    plB[64] = B[64+0*ldb];
-    plB[80] = B[80+0*ldb];
 
-    plA[0] = A[0+0*lda];
-    plA[16] = A[16+0*lda];
-    plA[32] = A[32+0*lda];
-    plA[48] = A[48+0*lda];
-    plA[64] = A[64+0*lda];
-    plA[80] = A[80+0*lda];
+    for (int i=0;i<BLOCK_SZ; i++) {
+      plB[i*16] = B[16*i+0*ldb];
+    };
 
+    for (int i=0;i<BLOCK_SZ; i++) {
+      plA[i*16] = A[16*i+0*ldb];
+    };
 
     barrier(CLK_LOCAL_MEM_FENCE);
     uint offA = idx;
     uint offB = idy;
-
 
     M6x6
     M6x6
@@ -145,5 +137,14 @@ __attribute__((reqd_work_group_size(16,16,1)))
   C[64*ldc] = alpha*rC[5][4] + beta*C[64*ldc];
   C[80*ldc] = alpha*rC[5][5] + beta*C[80*ldc];
 
+  /*
+  for (int o = 0 ; o < BLOCK_SZ ; o++ ) {
+    for (int i = 0 ; i < BLOCK_SZ ; i++) {
+      C[16*i*ldc] = alpha*rC[o][i] + beta*C[i*16*ldc];
+      C+=16;
+    };
+  };
+  
+  */
 }
 

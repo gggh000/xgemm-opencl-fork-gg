@@ -259,10 +259,13 @@ bool checkResultCPU(float* DeviceResult, float* A, float* B,float* RefC, float a
     if (abs(DeviceResult[i]-RefC[i])>=EPSILONF)
     {
       printf("sgemm fails, i=%i, diff=%f\n", i, DeviceResult[i]-RefC[i]);
+      printf("sgemm fails, i=%i, DeviceResult=%f, RefC=%f.\n", i, DeviceResult[i], RefC[i]);
       return false;
+    //} else {
+      //printf("sgemm ok, i=%i, diff=%f\n", i, DeviceResult[i]-RefC[i]);
+      //printf("sgemm ok, i=%i, DeviceResult=%f, RefC=%f.\n", i, DeviceResult[i], RefC[i]);
     }
   }
-
 
   return true;
 }
