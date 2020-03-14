@@ -95,56 +95,10 @@ __attribute__((reqd_work_group_size(16,16,1)))
   C+= gidy*96*ldc;
   C+= idy*ldc;
 
-  C[0*ldc] = alpha*rC[0][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[0][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[0][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[0][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[0][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[0][5] + beta*C[80*ldc];
-  C+=16;
-  C[0*ldc] = alpha*rC[1][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[1][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[1][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[1][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[1][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[1][5] + beta*C[80*ldc];
-  C+=16;
-  C[0*ldc] = alpha*rC[2][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[2][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[2][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[2][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[2][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[2][5] + beta*C[80*ldc];
-  C+=16;
-  C[0*ldc] = alpha*rC[3][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[3][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[3][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[3][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[3][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[3][5] + beta*C[80*ldc];
-  C+=16;
-  C[0*ldc] = alpha*rC[4][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[4][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[4][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[4][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[4][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[4][5] + beta*C[80*ldc];
-  C+=16;
-  C[0*ldc] = alpha*rC[5][0] + beta*C[0*ldc];
-  C[16*ldc] = alpha*rC[5][1] + beta*C[16*ldc];
-  C[32*ldc] = alpha*rC[5][2] + beta*C[32*ldc];
-  C[48*ldc] = alpha*rC[5][3] + beta*C[48*ldc];
-  C[64*ldc] = alpha*rC[5][4] + beta*C[64*ldc];
-  C[80*ldc] = alpha*rC[5][5] + beta*C[80*ldc];
-
-  /*
   for (int o = 0 ; o < BLOCK_SZ ; o++ ) {
     for (int i = 0 ; i < BLOCK_SZ ; i++) {
       C[16*i*ldc] = alpha*rC[o][i] + beta*C[i*16*ldc];
-      C+=16;
     };
+    C+=16;
   };
-  
-  */
 }
-
